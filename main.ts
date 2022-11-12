@@ -39,6 +39,7 @@ function runChat(url: string) {
     eventTarget,
     ChatEventType.initiated,
     async () => {
+      console.log("new connection");
       const msg = eliza.getInitial();
       await chatContext.send({ msg });
       // End the chat after 5 minutes
