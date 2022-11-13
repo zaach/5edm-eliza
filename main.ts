@@ -19,7 +19,7 @@ async function handler(req: Request): Promise<Response> {
     const body = await req.json();
     const { invite } = body;
     runChat(invite);
-  } else {
+  } else if (req.method.toLowerCase() === "post") {
     return new Response("not ok", { status: 400 });
   }
   return new Response("ok");
