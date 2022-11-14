@@ -39,15 +39,14 @@ function runChat(url: string) {
     eventTarget,
     ChatEventType.initiated,
     async () => {
-      console.log("new connection");
       const msg = eliza.getInitial();
       await chatContext.send({ msg });
-      // End the chat after 5 minutes
+      // End the chat after 3 minutes
       setTimeout(async () => {
         const msg = eliza.getFinal();
         await chatContext.send({ msg });
         await chatContext.disconnect();
-      }, 300_000);
+      }, 180_000);
     },
   );
   ChatEvent.addTypedListener(
@@ -65,13 +64,22 @@ function runChat(url: string) {
     async (e) => {
       switch (e.detail.type) {
         case MessageType.message: {
-          const reply = eliza.transform(e.detail.msg);
+          let msg;
+          if (e.detail.msg === "/ryu") {
+            msg = "/ken";
+          } else if (e.detail.msg === "/ken") {
+            msg = "/ryu";
+          } else if (e.detail.msg === "/nyan") {
+            msg = "/nyan";
+          } else {
+            msg = eliza.transform(e.detail.msg);
+          }
           if (eliza.quit) {
             // last user input was a quit phrase
-            await chatContext.send({ msg: reply });
+            await chatContext.send({ msg });
             await chatContext.disconnect();
           } else {
-            await chatContext.send({ msg: reply });
+            await chatContext.send({ msg });
           }
           break;
         }
