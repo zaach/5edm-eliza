@@ -1,4 +1,4 @@
-# 5EDM Eliza
+# 5EDM ELIZA🤖
 
 The OG chat bot, [ELIZA](https://en.wikipedia.org/wiki/ELIZA), made available on [5edm](https://5edm.deno.dev).
 
